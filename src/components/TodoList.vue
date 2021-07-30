@@ -1,14 +1,20 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-29 16:29:24
- * @LastEditTime: 2021-07-30 17:49:37
+ * @LastEditTime: 2021-07-30 20:39:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \todo\src\components\TodoHeader.vue
 -->
 <template>
   <ul class="todo-main">
-    <TodoItem v-for="todo in todos" :key="todo.id" :things="todo"></TodoItem>
+    <TodoItem
+      v-for="todo in todos"
+      :key="todo.id"
+      :things="todo"
+      :checkTodo="checkTodo"
+      :deleteTodo="deleteTodo"
+    ></TodoItem>
   </ul>
 </template>
 
@@ -18,7 +24,7 @@ export default {
   name: "TodoList",
 
   components: { TodoItem },
-  props: ["todos"],
+  props: ["todos", "checkTodo", "deleteTodo"],
 };
 </script>
 

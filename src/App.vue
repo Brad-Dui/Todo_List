@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-29 15:14:41
- * @LastEditTime: 2021-07-30 17:59:26
+ * @LastEditTime: 2021-07-30 20:39:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \todo\src\App.vue
@@ -11,7 +11,11 @@
     <div class="todo-container">
       <div class="todo-wrap">
         <TodoHeader :addTodo="addTodo"></TodoHeader>
-        <TodoList :todos="todos"></TodoList>
+        <TodoList
+          :todos="todos"
+          :checkTodo="checkTodo"
+          :deleteTodo="deleteTodo"
+        ></TodoList>
         <TodoFooter></TodoFooter>
       </div>
     </div>
@@ -45,6 +49,16 @@ export default {
       const todoObj = { id: nanoid(), title: e.target.value, completed: false };
       this.todos.unshift(todoObj);
       e.target.value = "";
+    },
+    //切换值的动态响应
+    checkTodo(id) {
+      this.todos.forEach((todo) => {
+        if (todo.id === id) todo.completed = !todo.completed;
+      });
+    },
+    //删除一个代办事项
+    deleteTodo(id) {
+      this.todos = this.todos.filter((todo) => todo.id !== id);
     },
   },
 };
