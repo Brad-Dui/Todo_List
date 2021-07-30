@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-29 15:14:41
- * @LastEditTime: 2021-07-30 20:39:48
+ * @LastEditTime: 2021-07-30 23:51:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \todo\src\App.vue
@@ -16,7 +16,11 @@
           :checkTodo="checkTodo"
           :deleteTodo="deleteTodo"
         ></TodoList>
-        <TodoFooter></TodoFooter>
+        <TodoFooter
+          :todos="todos"
+          :allCheck="allCheck"
+          :clearCheck="clearCheck"
+        ></TodoFooter>
       </div>
     </div>
   </div>
@@ -59,6 +63,16 @@ export default {
     //删除一个代办事项
     deleteTodo(id) {
       this.todos = this.todos.filter((todo) => todo.id !== id);
+    },
+    //全选
+    allCheck(completed) {
+      this.todos.forEach((todo) => {
+        todo.completed = completed;
+      });
+    },
+    //删除已选中事项
+    clearCheck() {
+      this.todos = this.todos.filter((todo) => !todo.completed);
     },
   },
 };
