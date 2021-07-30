@@ -1,20 +1,25 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-29 16:29:24
- * @LastEditTime: 2021-07-29 20:41:02
+ * @LastEditTime: 2021-07-30 17:43:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \todo\src\components\TodoHeader.vue
 -->
 <template>
   <div class="todo-header">
-    <input type="text" placeholder="请输入你的任务名称，按回车键确认" />
+    <input
+      type="text"
+      @keyup.enter="addTodo"
+      placeholder="请输入你的任务名称，按回车键确认"
+    />
   </div>
 </template>
 
 <script>
 export default {
   name: "TodoHeader",
+  props: ["addTodo"],
 };
 </script>
 

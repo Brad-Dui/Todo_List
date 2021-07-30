@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-29 15:14:41
- * @LastEditTime: 2021-07-29 21:32:42
+ * @LastEditTime: 2021-07-30 17:59:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \todo\src\App.vue
@@ -10,8 +10,8 @@
   <div id="root">
     <div class="todo-container">
       <div class="todo-wrap">
-        <TodoHeader></TodoHeader>
-        <TodoList></TodoList>
+        <TodoHeader :addTodo="addTodo"></TodoHeader>
+        <TodoList :todos="todos"></TodoList>
         <TodoFooter></TodoFooter>
       </div>
     </div>
@@ -23,10 +23,30 @@
 import TodoHeader from "./components/TodoHeader.vue";
 import TodoList from "./components/TodoList.vue";
 import TodoFooter from "./components/TodoFooter.vue";
+import { nanoid } from "nanoid";
 export default {
   name: "App",
+  data() {
+    return {
+      todos: [
+        { id: "001", title: "吃饭", completed: true },
+        { id: "002", title: "学习", completed: false },
+        { id: "003", title: "睡觉", completed: true },
+      ],
+    };
+  },
   //组件注册
   components: { TodoHeader, TodoList, TodoFooter },
+  methods: {
+    //将函数传入子组件1 获取数据
+    //将数据整理插入后再传入至子组件2
+    addTodo(e) {
+      if (!e.target.value) return alert("输入不能为空");
+      const todoObj = { id: nanoid(), title: e.target.value, completed: false };
+      this.todos.unshift(todoObj);
+      e.target.value = "";
+    },
+  },
 };
 </script>
 
@@ -37,6 +57,7 @@ body {
 .todo-container {
   width: 600px;
   margin: 0 auto;
+  box-shadow: 0 0 5px gray;
 }
 .todo-container .todo-wrap {
   padding: 10px;

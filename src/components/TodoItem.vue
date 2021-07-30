@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-29 16:29:24
- * @LastEditTime: 2021-07-29 21:34:21
+ * @LastEditTime: 2021-07-29 22:30:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \todo\src\components\TodoHeader.vue
@@ -9,8 +9,8 @@
 <template>
   <li>
     <label>
-      <input type="checkbox" />
-      <span></span>
+      <input type="checkbox" :checked="things.completed" />
+      <span>{{ things.title }}</span>
     </label>
     <button class="btn btn-danger">删除</button>
   </li>
@@ -19,6 +19,7 @@
 <script>
 export default {
   name: "TodoItem",
+  props: ["things"],
 };
 </script>
 
@@ -34,13 +35,15 @@ li label {
   float: left;
   cursor: pointer;
 }
-
-li label li input {
+li label span {
+  margin-left: 10px;
+}
+/* li label li input {
   vertical-align: middle;
   margin-right: 6px;
   position: relative;
   top: -1px;
-}
+} */
 li button {
   float: right;
   display: none;
