@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-29 15:14:41
- * @LastEditTime: 2021-07-31 14:06:10
+ * @LastEditTime: 2021-07-31 20:34:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \todo\src\App.vue
@@ -10,7 +10,7 @@
   <div id="root">
     <div class="todo-container">
       <div class="todo-wrap">
-        <TodoHeader :addTodo="addTodo"></TodoHeader>
+        <TodoHeader @addTodo="addTodo"></TodoHeader>
         <TodoList
           :todos="todos"
           :checkTodo="checkTodo"
@@ -18,8 +18,8 @@
         ></TodoList>
         <TodoFooter
           :todos="todos"
-          :allCheck="allCheck"
-          :clearCheck="clearCheck"
+          @allCheck="allCheck"
+          @clearCheck="clearCheck"
         ></TodoFooter>
       </div>
     </div>
@@ -31,7 +31,6 @@
 import TodoHeader from "./components/TodoHeader.vue";
 import TodoList from "./components/TodoList.vue";
 import TodoFooter from "./components/TodoFooter.vue";
-import { nanoid } from "nanoid";
 export default {
   name: "App",
   data() {
@@ -44,11 +43,8 @@ export default {
   methods: {
     //将函数传入子组件1 获取数据
     //将数据整理插入后再传入至子组件2
-    addTodo(e) {
-      if (!e.target.value) return alert("输入不能为空");
-      const todoObj = { id: nanoid(), title: e.target.value, completed: false };
+    addTodo(todoObj) {
       this.todos.unshift(todoObj);
-      e.target.value = "";
     },
     //切换值的动态响应
     checkTodo(id) {

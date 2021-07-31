@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-29 16:29:24
- * @LastEditTime: 2021-07-30 23:49:21
+ * @LastEditTime: 2021-07-31 20:38:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \todo\src\components\TodoHeader.vue
@@ -24,7 +24,7 @@ export default {
   props: ["todos", "allCheck", "clearCheck"],
   methods: {
     clear() {
-      this.clearCheck();
+      this.$emit("clearCheck");
     },
   },
   computed: {
@@ -43,7 +43,7 @@ export default {
         return this.all === this.completedTotal && this.all > 0;
       },
       set(value) {
-        this.allCheck(value);
+        this.$emit("allCheck", value);
       },
     },
   },

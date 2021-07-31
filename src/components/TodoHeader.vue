@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-29 16:29:24
- * @LastEditTime: 2021-07-30 17:43:54
+ * @LastEditTime: 2021-07-31 20:29:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \todo\src\components\TodoHeader.vue
@@ -10,16 +10,24 @@
   <div class="todo-header">
     <input
       type="text"
-      @keyup.enter="addTodo"
+      @keyup.enter="add"
       placeholder="请输入你的任务名称，按回车键确认"
     />
   </div>
 </template>
 
 <script>
+import { nanoid } from "nanoid";
 export default {
   name: "TodoHeader",
-  props: ["addTodo"],
+  methods: {
+    add(e) {
+      if (!e.target.value) return alert("输入不能为空");
+      const todoObj = { id: nanoid(), title: e.target.value, completed: false };
+      this.$emit("addTodo", todoObj);
+      e.target.value = "";
+    },
+  },
 };
 </script>
 
