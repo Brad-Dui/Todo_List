@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-29 15:14:41
- * @LastEditTime: 2021-07-30 23:51:15
+ * @LastEditTime: 2021-07-31 14:06:10
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \todo\src\App.vue
@@ -36,11 +36,7 @@ export default {
   name: "App",
   data() {
     return {
-      todos: [
-        { id: "001", title: "吃饭", completed: true },
-        { id: "002", title: "学习", completed: false },
-        { id: "003", title: "睡觉", completed: true },
-      ],
+      todos: JSON.parse(localStorage.getItem("todos")) || [],
     };
   },
   //组件注册
@@ -73,6 +69,14 @@ export default {
     //删除已选中事项
     clearCheck() {
       this.todos = this.todos.filter((todo) => !todo.completed);
+    },
+  },
+  watch: {
+    todos: {
+      deep: true,
+      handler(value) {
+        localStorage.setItem("todos", JSON.stringify(value));
+      },
     },
   },
 };
