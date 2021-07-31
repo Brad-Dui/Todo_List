@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-29 16:29:24
- * @LastEditTime: 2021-07-30 20:41:38
+ * @LastEditTime: 2021-07-31 22:40:06
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \todo\src\components\TodoHeader.vue
@@ -29,15 +29,15 @@
 <script>
 export default {
   name: "TodoItem",
-  props: ["things", "checkTodo", "deleteTodo"],
+  props: ["things"],
   methods: {
     //标记todo的id 传入到从父级层层传递来的处理方法
     handleCheck(id) {
-      this.checkTodo(id);
+      this.$bus.$emit("checkTodo", id);
     },
     deleteBtn(id) {
       if (confirm("确定删除")) {
-        this.deleteTodo(id);
+        this.$bus.$emit("deleteTodo", id);
       }
     },
   },

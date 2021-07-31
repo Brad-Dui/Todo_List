@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-29 15:14:41
- * @LastEditTime: 2021-07-31 20:34:52
+ * @LastEditTime: 2021-07-31 22:39:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \todo\src\App.vue
@@ -11,11 +11,7 @@
     <div class="todo-container">
       <div class="todo-wrap">
         <TodoHeader @addTodo="addTodo"></TodoHeader>
-        <TodoList
-          :todos="todos"
-          :checkTodo="checkTodo"
-          :deleteTodo="deleteTodo"
-        ></TodoList>
+        <TodoList :todos="todos"></TodoList>
         <TodoFooter
           :todos="todos"
           @allCheck="allCheck"
@@ -66,6 +62,10 @@ export default {
     clearCheck() {
       this.todos = this.todos.filter((todo) => !todo.completed);
     },
+  },
+  mounted() {
+    this.$bus.$on("checkTodo", this.checkTodo);
+    this.$bus.$on("deleteTodo", this.deleteTodo);
   },
   watch: {
     todos: {
