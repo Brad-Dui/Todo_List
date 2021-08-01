@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-29 16:29:24
- * @LastEditTime: 2021-07-31 22:40:06
+ * @LastEditTime: 2021-08-01 21:32:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \todo\src\components\TodoHeader.vue
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import pubsub from "pubsub-js";
 export default {
   name: "TodoItem",
   props: ["things"],
@@ -37,7 +38,8 @@ export default {
     },
     deleteBtn(id) {
       if (confirm("确定删除")) {
-        this.$bus.$emit("deleteTodo", id);
+        //消息发布
+        pubsub.publish("deleteTodo", id);
       }
     },
   },

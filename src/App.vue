@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-29 15:14:41
- * @LastEditTime: 2021-07-31 22:39:28
+ * @LastEditTime: 2021-08-01 21:31:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \todo\src\App.vue
@@ -27,6 +27,7 @@
 import TodoHeader from "./components/TodoHeader.vue";
 import TodoList from "./components/TodoList.vue";
 import TodoFooter from "./components/TodoFooter.vue";
+import pubsub from "pubsub-js";
 export default {
   name: "App",
   data() {
@@ -49,7 +50,7 @@ export default {
       });
     },
     //删除一个代办事项
-    deleteTodo(id) {
+    deleteTodo(_, id) {
       this.todos = this.todos.filter((todo) => todo.id !== id);
     },
     //全选
@@ -65,7 +66,12 @@ export default {
   },
   mounted() {
     this.$bus.$on("checkTodo", this.checkTodo);
-    this.$bus.$on("deleteTodo", this.deleteTodo);
+    //消息订阅
+    this.pubid = pubsub.subscribe("deleteTodo", this.deleteTodo);
+  },
+  beforeDestroy() {
+    this.$bus.off("checkTodo");
+    pubsub.unsubscribe(this.pubid);
   },
   watch: {
     todos: {
