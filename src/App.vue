@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-29 15:14:41
- * @LastEditTime: 2021-08-01 21:31:51
+ * @LastEditTime: 2021-08-02 18:15:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \todo\src\App.vue
@@ -63,14 +63,23 @@ export default {
     clearCheck() {
       this.todos = this.todos.filter((todo) => !todo.completed);
     },
+    //失去焦点更新
+    updateData(id, title) {
+      this.todos.forEach((todo) => {
+        if (todo.id === id) todo.title = title;
+      });
+    },
   },
   mounted() {
     this.$bus.$on("checkTodo", this.checkTodo);
     //消息订阅
     this.pubid = pubsub.subscribe("deleteTodo", this.deleteTodo);
+    //绑定更新
+    this.$bus.$on("updateData", this.updateData);
   },
   beforeDestroy() {
     this.$bus.off("checkTodo");
+    this.$bus.off("updateData");
     pubsub.unsubscribe(this.pubid);
   },
   watch: {
@@ -116,9 +125,19 @@ body {
   background-color: #da4f49;
   border: 1px solid #bd362f;
 }
+.btn-edit {
+  color: #fff;
+  background-color: #2edef5;
+  border: 1px solid #1fc9f3;
+  margin-right: 5px;
+}
 .btn-danger:hover {
   color: #fff;
   background-color: #bd362f;
+}
+.btn-edit:hover {
+  color: #fff;
+  background-color: #1fc9f3;
 }
 .btn:focus {
   outline: none;

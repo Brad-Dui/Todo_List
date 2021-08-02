@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-29 16:29:24
- * @LastEditTime: 2021-08-01 21:32:01
+ * @LastEditTime: 2021-08-02 22:01:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \todo\src\components\TodoHeader.vue
@@ -20,9 +20,24 @@
         :checked="things.completed"
         v-model="things.completed"
       /> -->
-      <span>{{ things.title }}</span>
+      <span v-show="!things.isEdit">{{ things.title }}</span>
+      <input
+        class="inputBlur"
+        v-show="things.isEdit"
+        type="text"
+        :value="things.title"
+        @blur="handleBlur(things, $event)"
+        ref="inputBlur"
+      />
     </label>
     <button class="btn btn-danger" @click="deleteBtn(things.id)">删除</button>
+    <button
+      v-show="!things.isEdit"
+      class="btn btn-edit"
+      @click="editBtn(things)"
+    >
+      编辑
+    </button>
   </li>
 </template>
 
@@ -41,6 +56,21 @@ export default {
         //消息发布
         pubsub.publish("deleteTodo", id);
       }
+    },
+    editBtn(things) {
+      if (things.hasOwnProperty.call(things, "isEdit")) {
+        things.isEdit = true;
+      } else {
+        this.$set(things, "isEdit", true);
+      }
+      this.$nextTick(function () {
+        this.$refs.inputBlur.focus();
+      });
+    },
+    handleBlur(things, e) {
+      things.isEdit = false;
+      if (!e.target.value.trim()) return alert("输入不能为空");
+      this.$bus.$emit("updateData", things.id, e.target.value);
     },
   },
 };
@@ -83,5 +113,16 @@ li:hover {
 }
 li:hover button {
   display: block;
+}
+li .inputBlur:focus {
+  outline: none;
+  margin-left: 10px;
+  height: 20px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  border-color: rgba(82, 168, 236, 0.8);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px rgba(82, 168, 236, 0.6);
 }
 </style>
