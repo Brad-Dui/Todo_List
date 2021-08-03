@@ -1,14 +1,16 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-29 16:29:24
- * @LastEditTime: 2021-07-31 22:38:32
+ * @LastEditTime: 2021-08-03 14:06:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \todo\src\components\TodoHeader.vue
 -->
 <template>
   <ul class="todo-main">
-    <TodoItem v-for="todo in todos" :key="todo.id" :things="todo"></TodoItem>
+    <transition-group name="anmtTodo">
+      <TodoItem v-for="todo in todos" :key="todo.id" :things="todo"></TodoItem>
+    </transition-group>
   </ul>
 </template>
 
@@ -28,5 +30,20 @@ export default {
   border: 1px solid #ddd;
   border-radius: 2px;
   padding: 0px;
+  overflow: hidden;
+}
+.anmtTodo-enter {
+  transform: translateX(100%);
+}
+.anmtTodo-enter-to,
+.anmtTodo-leave {
+  transform: translateX(0);
+}
+.anmtTodo-leave-to {
+  transform: translateX(-100%);
+}
+.anmtTodo-enter-active,
+.anmtTodo-leave-active {
+  transition: 0.5s linear;
 }
 </style>
