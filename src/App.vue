@@ -1,11 +1,4 @@
-<!--
- * @Author: your name
- * @Date: 2021-07-29 15:14:41
- * @LastEditTime: 2021-08-02 18:15:07
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \todo\src\App.vue
--->
+
 <template>
   <div id="root">
     <div class="todo-container">
