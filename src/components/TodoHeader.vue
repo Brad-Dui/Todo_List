@@ -1,11 +1,4 @@
-<!--
- * @Author: your name
- * @Date: 2021-07-29 16:29:24
- * @LastEditTime: 2021-07-31 20:29:05
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \todo\src\components\TodoHeader.vue
--->
+
 <template>
   <div class="todo-header">
     <input
